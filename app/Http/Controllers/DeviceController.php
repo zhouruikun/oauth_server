@@ -30,7 +30,7 @@ class DeviceController extends Controller
                       "zone":"",          
                       "brand":"",
                       "model":"",     
-                      "icon":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1533312561637&di=ceb67291219470e5ffe6a7eaa105deea&imgtype=0&src=http%3A%2F%2Fwww.suunto.cn%2Fcontentassets%2Fa831335e43eb4b3b90b55547ed33ab41%2Ficon-steps.png",
+                      "icon":"",
                       "properties":[{
                         "name":"color",
                         "value":"Red"
@@ -57,4 +57,49 @@ class DeviceController extends Controller
        return $result;
 
     }
+    public function test()
+    {
+        $str = '
+                   {
+                  "header":{
+                      "namespace":"AliGenie.Iot.Device.Discovery",
+                      "name":"DiscoveryDevicesResponse",
+                      "messageId":"%s",
+                      "payLoadVersion":1
+                   },
+                   "payload":{
+                      "devices":[{
+                      "deviceId":"34ea34cf2e63",
+                      "deviceName":"light1",
+                      "deviceType":"light",
+                      "zone":"",          
+                      "brand":"",
+                      "model":"",     
+                      "icon":"",
+                      "properties":[{
+                        "name":"color",
+                        "value":"Red"
+                       }],
+                      "actions":[
+                        "TurnOn",
+                        "TurnOff",
+                        "SetBrightness",       
+                        "AdjustBrightness",     
+                        "SetTemperature",
+                        "Query"          
+                     ],
+                      "extensions":{
+                         "extension1":"",
+                         "extension2":""
+                      }
+                     }]
+                   }
+                }
+                ';
+
+        $result = sprintf($str,"dssd");
+
+    return $result;
+    }
+
 }

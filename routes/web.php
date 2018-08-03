@@ -19,3 +19,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/getDevice', 'DeviceController@getDevice')->name('getDevice');
+Route::get('/test', 'DeviceController@test')->name('test');
