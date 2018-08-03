@@ -30,7 +30,7 @@ class DeviceController extends Controller
                       "zone":"123",          
                       "brand":"345",
                       "model":"567",     
-                      "icon":"image/1.png",
+                      "icon":"https://tmjl.zhoukuniyc.top/image/1.png",
                       "properties":[{
                         "name":"color",
                         "value":"Red"
