@@ -27,10 +27,10 @@ class DeviceController extends Controller
                       "deviceId":"34ea34cf2e63",
                       "deviceName":"light1",
                       "deviceType":"light",
-                      "zone":"",          
-                      "brand":"",
-                      "model":"",     
-                      "icon":"",
+                      "zone":"123",          
+                      "brand":"345",
+                      "model":"567",     
+                      "icon":"https://tmjl.zhoukuniyc.top/image/1.png",
                       "properties":[{
                         "name":"color",
                         "value":"Red"
