@@ -72,10 +72,10 @@ class DeviceController extends Controller
                       "deviceId":"34ea34cf2e63",
                       "deviceName":"light1",
                       "deviceType":"light",
-                      "zone":"",          
-                      "brand":"",
-                      "model":"",     
-                      "icon":"",
+                      "zone":"zz",          
+                      "brand":"zz",
+                      "model":"zzz",     
+                      "icon":"zzz",
                       "properties":[{
                         "name":"color",
                         "value":"Red"
