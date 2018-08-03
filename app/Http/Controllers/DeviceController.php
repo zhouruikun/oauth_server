@@ -30,7 +30,7 @@ class DeviceController extends Controller
                       "zone":"123",          
                       "brand":"345",
                       "model":"567",     
-                      "icon":"https://tmjl.zhoukuniyc.top/image/1.png",
+                      "icon":"image/1.png",
                       "properties":[{
                         "name":"color",
                         "value":"Red"
@@ -45,7 +45,7 @@ class DeviceController extends Controller
                      ],
                       "extensions":{
                          "extension1":"",
-                         "extension2":""
+                         "extension2":"1"
                       }
                      }]
                    }
@@ -54,7 +54,7 @@ class DeviceController extends Controller
 
                 $result = sprintf($str,$data->header->messageId);
         }
-       return $result;
+       return json_encode($result);
 
     }
     public function test()
