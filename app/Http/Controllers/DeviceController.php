@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Log;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 class DeviceController extends Controller
@@ -9,6 +9,7 @@ class DeviceController extends Controller
     //
     public function getDevice(Request $request)
     {
+        Log::info($request);
         $data= $request->getContent();
         $data = json_decode($data);
         switch ($data->header->namespace)
@@ -44,7 +45,7 @@ class DeviceController extends Controller
                         "Query"          
                      ],
                       "extensions":{
-                         "extension1":"",
+                         "extension1":"1",
                          "extension2":"1"
                       }
                      }]
@@ -57,8 +58,6 @@ class DeviceController extends Controller
                   $status = 200;
           $type = 'application/json';
           return (new  Response($result,$status))->header('Content-Type',$type);
-
-
     }
     public function test()
     {
