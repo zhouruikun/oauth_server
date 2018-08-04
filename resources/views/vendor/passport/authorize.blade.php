@@ -66,9 +66,7 @@
                             <!-- Authorize Button -->
                             <form method="post" action="/oauth/authorize">
                                 {{ csrf_field() }}
-                                <input type="hidden" name="token" value="{{ $request->token }}">
-                                <input type="hidden" name="skillId" value="{{ $request->skillId }}">
-                                <input type="hidden" name="state" value="{{ $request->state }}">
+                                <input type="hidden" name="state" value="{{ $request->state}}">
                                 <input type="hidden" name="client_id" value="{{ $client->id }}">
                                 <button type="submit" class="btn btn-success btn-approve">Authorize</button>
                             </form>
@@ -77,8 +75,6 @@
                             <form method="post" action="/oauth/authorize">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
-                                <input type="hidden" name="token" value="{{ $request->token }}">
-                                <input type="hidden" name="skillId" value="{{ $request->skillId }}">
                                 <input type="hidden" name="state" value="{{ $request->state }}">
                                 <input type="hidden" name="client_id" value="{{ $client->id }}">
                                 <button class="btn btn-danger">Cancel</button>
