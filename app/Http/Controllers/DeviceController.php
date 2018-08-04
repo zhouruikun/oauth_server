@@ -54,7 +54,10 @@ class DeviceController extends Controller
 
                 $result = sprintf($str,$data->header->messageId);
         }
-       return  ($result);
+                  $status = 200;
+          $type = 'application/json';
+          return (new  Response($result,$status))->header('Content-Type',$type);
+        
 
     }
     public function test()
