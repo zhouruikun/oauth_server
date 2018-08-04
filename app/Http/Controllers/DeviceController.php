@@ -54,7 +54,7 @@ class DeviceController extends Controller
 
                 $result = sprintf($str,$data->header->messageId);
         }
-       return json_encode($result);
+       return ($result);
 
     }
     public function test()

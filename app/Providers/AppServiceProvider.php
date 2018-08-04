@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Schema;   //新增的
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,5 +26,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+
+
     }
 }
