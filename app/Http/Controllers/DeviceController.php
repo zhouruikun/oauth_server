@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Http\Response;
 class DeviceController extends Controller
 {
     //
@@ -57,7 +57,7 @@ class DeviceController extends Controller
                   $status = 200;
           $type = 'application/json';
           return (new  Response($result,$status))->header('Content-Type',$type);
-        
+
 
     }
     public function test()
