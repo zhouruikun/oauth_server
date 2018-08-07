@@ -12,6 +12,7 @@ class DeviceController extends Controller
         Log::info($request);
         $data= $request->getContent();
         $data = json_decode($data);
+    
         switch ($data->header->namespace)
         {
             case 'AliGenie.Iot.Device.Discovery':
