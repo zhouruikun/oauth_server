@@ -1,6 +1,6 @@
 <?php
 
-use log;
+use Illuminate\Support\Facades\Log;
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
@@ -56,8 +56,9 @@ $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
 
+Log::info(($request));
 $response->send();
 
 $kernel->terminate($request, $response);
 
-Log::info($request);
+
