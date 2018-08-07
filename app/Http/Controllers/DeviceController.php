@@ -57,7 +57,10 @@ class DeviceController extends Controller
         }
                   $status = 200;
           $type = 'application/json';
-          return (new  Response($result,$status))->header('Content-Type',$type);
+          $respo=(new  Response($result,$status))->header('Content-Type',$type);
+          Log::info($respo);
+          dd($respo);
+          return $respo;
     }
     public function test()
     {
