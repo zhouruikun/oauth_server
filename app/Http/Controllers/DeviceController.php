@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 class DeviceController extends Controller
 {
+    public  $result='';
     //
     public function getDevice(Request $request)
     {
@@ -14,8 +15,7 @@ class DeviceController extends Controller
         $data= $request->getContent();
         $data = json_decode($data);
 
-        switch ($data->header->namespace)
-        {
+        switch ($data->header->namespace) {
             case 'AliGenie.Iot.Device.Discovery':
                 $str = '
                    {
@@ -54,13 +54,15 @@ class DeviceController extends Controller
                    }
                 }
                 ';
-                $result = sprintf($str,$data->header->messageId);
-
+                $resultstr = sprintf($str, $data->header->messageId);
+                break;
             case  'AliGenie.Iot.Device.Control':
-                $str = '｛
+                $result = $this->DeviceControl($data);
+                if ($result->result == true) {
+                    $str = '｛
                           "header":{
                               "namespace":"AliGenie.Iot.Device.Control",
-                              "name":"TurnOnResponse",
+                              "name":"%s",
                               "messageId":"%s",
                               "payLoadVersion":1
                            },
@@ -68,16 +70,70 @@ class DeviceController extends Controller
                               "deviceId":"%s"
                             }
                          ｝';
-                $this->turnOn();
-                $result = sprintf($str,$data->header->messageId,$data->payload->deviceId);
-        }
-          $status = 200;
-          $type = 'application/json';
-          $respo=(new  Response($result,$status))->header('Content-Type',$type);
-          Log::info($respo);
-          return $respo;
+                    $resultstr = sprintf($str, $result->name, $data->header->messageId, $data->payload->deviceId);
+                } else {
+                    $str = '｛
+                          "header":{
+                              "namespace":"AliGenie.Iot.Device.Control",
+                              "name":"%s",
+                              "messageId":"%s",
+                              "payLoadVersion":1
+                           },
+                           "payload":{
+                              "deviceId":"%s"
+                               "errorCode":"%s",
+                                "message":"%s"
+                            }
+                         ｝';
+                    $resultstr = sprintf($str, $result->name, $data->header->messageId, $result->deviceId, $result->errorCode, $result->message);
+                }
+                break;
+            }
+        $status = 200;
+        $type = 'application/json';
+        $respo = (new  Response($resultstr, $status))->header('Content-Type', $type);
+        Log::info($respo);
+        return $respo;
+    }
+
+    public function DeviceControl($str)
+    {
+            switch ($str->header->name)
+            {
+                case 'TurnOn':
+                    $this->turnOn();
+                    $result['result'] = true;
+                    $result['name'] = 'TurnOnResponse';
+                    $result['deviceId'] = $str->payload->deviceId;
+                    break;
+                case 'TurnOff':
+                    $this->turnOff();
+                    $result['result'] = true;
+                    $result['name'] = 'TurnOffResponse';
+                    $result['deviceId'] = $str->payload->deviceId;
+                    break;
+            }
+            return json_encode($result);
     }
     public function turnOn(){
+        $server = "106.14.226.150";     // change if necessary
+        $port = 1883;                     // change if necessary
+        $username = "";                   // set your username
+        $password = "";                   // set your password
+        $client_id = "phpMQTT-publisher"; // make sure this is unique for connecting to sever - you could use uniqid()
+        $mqtt = new phpMQTT($server, $port, $client_id);
+        if ($mqtt->connect(true, NULL, $username, $password)) {
+            $mqtt->publish("ESP8266/sample/sub", "led = 1" , 0);
+            $mqtt->close();
+            //return "success";
+        } else {
+           // return "Time out!\n";
+        }
+    }
+
+
+
+    public function turnOff(){
         $server = "106.14.226.150";     // change if necessary
         $port = 1883;                     // change if necessary
         $username = "";                   // set your username
@@ -89,13 +145,9 @@ class DeviceController extends Controller
             $mqtt->close();
             //return "success";
         } else {
-           // return "Time out!\n";
+            // return "Time out!\n";
         }
     }
-
-
-
-
 
 
 
