@@ -57,7 +57,8 @@ class DeviceController extends Controller
                 $resultstr = sprintf($str, $data->header->messageId);
                 break;
             case  'AliGenie.Iot.Device.Control':
-                $result = $this->DeviceControl($data);
+                $result = json_decode($this->DeviceControl($data));
+       
                 if ($result->result == true) {
                     $str = '｛
                           "header":{
@@ -113,7 +114,7 @@ class DeviceController extends Controller
                     $result['deviceId'] = $str->payload->deviceId;
                     break;
             }
-            return json_encode($result);
+            return  json_encode($result);
     }
     public function turnOn(){
         $server = "106.14.226.150";     // change if necessary
