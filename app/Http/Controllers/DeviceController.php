@@ -58,9 +58,9 @@ class DeviceController extends Controller
                 break;
             case  'AliGenie.Iot.Device.Control':
                 $result = json_decode($this->DeviceControl($data));
-       
+
                 if ($result->result == true) {
-                    $str = '｛
+                    $str = '{
                           "header":{
                               "namespace":"AliGenie.Iot.Device.Control",
                               "name":"%s",
@@ -70,10 +70,10 @@ class DeviceController extends Controller
                            "payload":{
                               "deviceId":"%s"
                             }
-                         ｝';
+                         }';
                     $resultstr = sprintf($str, $result->name, $data->header->messageId, $data->payload->deviceId);
                 } else {
-                    $str = '｛
+                    $str = '{
                           "header":{
                               "namespace":"AliGenie.Iot.Device.Control",
                               "name":"%s",
@@ -85,7 +85,7 @@ class DeviceController extends Controller
                                "errorCode":"%s",
                                 "message":"%s"
                             }
-                         ｝';
+                         }';
                     $resultstr = sprintf($str, $result->name, $data->header->messageId, $result->deviceId, $result->errorCode, $result->message);
                 }
                 break;
