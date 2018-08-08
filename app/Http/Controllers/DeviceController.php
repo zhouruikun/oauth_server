@@ -12,7 +12,7 @@ class DeviceController extends Controller
         Log::info($request);
         $data= $request->getContent();
         $data = json_decode($data);
-    
+
         switch ($data->header->namespace)
         {
             case 'AliGenie.Iot.Device.Discovery':
@@ -53,8 +53,21 @@ class DeviceController extends Controller
                    }
                 }
                 ';
-
                 $result = sprintf($str,$data->header->messageId);
+
+            case  'AliGenie.Iot.Device.Control':
+                $str = '｛
+                          "header":{
+                              "namespace":"AliGenie.Iot.Device.Control",
+                              "name":"TurnOnResponse",
+                              "messageId":"%s",
+                              "payLoadVersion":1
+                           },
+                           "payload":{
+                              "deviceId":"%s"
+                            }
+                         ｝';
+                $result = sprintf($str,$data->header->messageId,$data->payload->deviceId);
         }
           $status = 200;
           $type = 'application/json';
