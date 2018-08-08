@@ -20,3 +20,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/test', 'DeviceController@test')->name('test');
 
+Route::get('/testmqtt', 'DeviceController@turnOn')->name('turnOn');

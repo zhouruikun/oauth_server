@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Log;
+use Bluerhinos\phpMQTT;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 class DeviceController extends Controller
@@ -67,6 +68,7 @@ class DeviceController extends Controller
                               "deviceId":"%s"
                             }
                          ｝';
+                $this->turnOn();
                 $result = sprintf($str,$data->header->messageId,$data->payload->deviceId);
         }
           $status = 200;
@@ -75,6 +77,32 @@ class DeviceController extends Controller
           Log::info($respo);
           return $respo;
     }
+    public function turnOn(){
+        $server = "106.14.226.150";     // change if necessary
+        $port = 1883;                     // change if necessary
+        $username = "";                   // set your username
+        $password = "";                   // set your password
+        $client_id = "phpMQTT-publisher"; // make sure this is unique for connecting to sever - you could use uniqid()
+        $mqtt = new phpMQTT($server, $port, $client_id);
+        if ($mqtt->connect(true, NULL, $username, $password)) {
+            $mqtt->publish("ESP8266/sample/sub", "led = 0" , 0);
+            $mqtt->close();
+            //return "success";
+        } else {
+           // return "Time out!\n";
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
     public function test()
     {
         $str = '
